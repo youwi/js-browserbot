@@ -1,0 +1,8 @@
+{
+  "name": "phantom-browser",
+  "main": "browser.js",
+  "dependencies": {
+    "debug": "^2.1.0",
+    "phantom": "^0.7.0"
+  }
+}
