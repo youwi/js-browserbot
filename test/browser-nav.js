@@ -1,8 +1,8 @@
 var assert = require('assert');
 var server = require('./server');
-var browser = require('..');
+var Browser = require('../lib/browser');
 
-describe('actions-page', function() {
+describe('browser-nav', function() {
 
 	describe('.go()', function() {
 
@@ -15,35 +15,42 @@ describe('actions-page', function() {
 				res.end();
 			});
 
-			browser()
-				.go(srv.url)
-				.run(function(err) {
+			var browser = Browser().setup(function(err) {
+				browser.go(srv.url, function(err) {
+					browser.destroy();
+
 					assert(request);
 					assert.equal(typeof(err), typeof(undefined));
+
 					done();
-				})
-			;
+				});
+			});
+
 
 		});
 
 		it('should get an error when I go to a offline URL', function(done) {
-			browser()
-				.go('http://foobar.localhost:9999')
-				.run(function(err) {
+			var browser = Browser().setup(function(err) {
+				browser.go('http://foobar.localhost:9999', function(err) {
+					browser.destroy();
+
 					assert(err instanceof Error);
+
 					done();
-				})
-			;
+				});
+			});
 		});
 
 		it('should get an error when I go to an invalid URL', function(done) {
-			browser()
-				.go('foobar://la-de-dah/invalid')
-				.run(function(err) {
+			var browser = Browser().setup(function() {
+				browser.go('foobar://la-de-dah/invalid', function(err) {
+					browser.destroy();
+
 					assert(err instanceof Error);
+
 					done();
-				})
-			;
+				});
+			})
 		});
 
 	});

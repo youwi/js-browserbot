@@ -1,48 +1,41 @@
 var fs = require('fs');
 var assert = require('assert');
 var server = require('./server');
-var browser = require('..');
+var BrowserBot = require('../browserbot');
 
-describe('actions-page', function() {
+describe('BrowserBot', function() {
 
-	describe('.viewport()', function() {
+	describe('.constructor', function() {
 
-		it('should successfully set the size', function(done) {
-
-			browser()
-				.viewport(1024, 768)//TODO: verify it gets created the right size
-				.run(function(err) {
-					assert.equal(typeof(err), typeof(undefined));
-					done();
-				})
-			;
-
+		it('should create a new instance', function() {
+			assert(new BrowserBot());
 		});
 
 	});
 
-	describe('.screenshot()', function() {
+	describe('.queue()', function() {
 
-		it('should create a file', function(done) {
+		it('should create a new instance', function() {
+			assert(new BrowserBot());
+		});
 
-			var file = './test.png';
+	});
+
+	describe('.run()', function() {
+
+		it('should run actions in order', function() {
 
 			var srv = server(function(req, res) {
-				res.write('<html><head><title>Test</title></head><body><h1>Test</h1></body>');
+				res.write('<html><head><title>Test</title></head><body><h1>Test</h1><a href="/" class="nav-link">A link!</a></body>');
 				res.end();
 			});
 
-			browser()
+			var bb = new BrowserBot();
+			bb
 				.go(srv.url)
-				.screenshot(file)
-				.run(function(err) {
-					assert.equal(typeof(err), typeof(undefined));
-					assert(fs.statSync(file).isFile());
-					fs.unlinkSync(file);
-					done();
+				.use(function() {
+					order.push(1)
 				})
-			;
-
 		});
 
 	});
@@ -52,7 +45,7 @@ describe('actions-page', function() {
 		it('should wait half a second before called', function(done) {
 			var start, end;
 
-			browser()
+			BrowserBot()
 				.use(function(done) {
 					start = new Date()
 					done();
@@ -82,14 +75,13 @@ describe('actions-page', function() {
 				request = true;
 				res.write('<html>');
 				setTimeout(function() {
-					console.log('sending data');
 					res.write('<head><title>Test</title></head><body><h1>Test</h1><a href="/" class="nav-link">A link!</a></body>');
 					res.end();
 					cb();
 				}, 100);
 			}, {times: 2});
 
-			browser()
+			BrowserBot()
 				.go(srv.url)
 				.click('a.nav-link')
 				.use(function(cb) {
@@ -113,5 +105,4 @@ describe('actions-page', function() {
 		});
 
 	});
-
 });

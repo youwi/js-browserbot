@@ -1,7 +1,10 @@
-var browser = require('./');
+var BrowserBot = require('./../browserbot');
 
-browser()
-	.viewport(1024, 1024)
+/**
+ * Send us an email
+ */
+
+new BrowserBot()
 	.go('http://www.digitaledgeit.com.au/contact/')
 	.type('input[name=firstName]',  'phantom')
 	.type('input[name=lastName]',   'browser')
@@ -11,7 +14,9 @@ browser()
 	.click('input[type=submit]')
 	.waitForEvent('LoadFinished')
 	.screenshot('contact.png')
-	//.html(function(html) {console.log(html);})
+	.html(function(html) {
+		console.log('HTML: '+html);
+	})
 	.run(function(err) {
 		console.log(err, 'done!');
 	})
