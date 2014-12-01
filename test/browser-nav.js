@@ -26,7 +26,6 @@ describe('browser-nav', function() {
 				});
 			});
 
-
 		});
 
 		it('should get an error when I go to a offline URL', function(done) {
@@ -51,6 +50,29 @@ describe('browser-nav', function() {
 					done();
 				});
 			})
+		});
+
+		it('should get an error when an asset does not exist', function(done) {
+			var request = false;
+
+			var srv = server(function(req, res) {
+				request = true;
+				res.write('<html><head><title>Test</title></head><body><h1>Test</h1><img src="./non-existent-image.png"/></body>');
+				res.end();
+			});
+
+			var browser = Browser().setup(function(err) {
+				browser.go(srv.url, function(err) {
+					browser.destroy();
+
+					assert(request);
+					assert.equal(typeof(err), typeof(undefined));
+
+					done();
+				});
+			});
+
+
 		});
 
 	});

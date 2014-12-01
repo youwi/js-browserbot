@@ -5,14 +5,15 @@ var EventEmitter = require('events').EventEmitter;
 /**
  * Create a browser queue
  * @constructor
+ * @param   {Object} settings
  */
-function BrowserBot() {
+function BrowserBot(settings) {
 
 	if (!(this instanceof BrowserBot)) {
 		return new BrowserBot();
 	}
 
-	this.browser  = new Browser();
+	this.browser  = new Browser(settings);
 	this.commands = [];
 }
 

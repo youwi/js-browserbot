@@ -116,4 +116,53 @@ describe('BrowserBot', function() {
 		});
 
 	});
+
+
+	describe('.wrap()', function() {
+
+		it('should queue and run without a callback', function() {
+
+			BrowserBot()
+				.go('http://yahoo.com/')
+				.run(done)
+			;
+
+		});
+
+		it('should queue and run with a callback', function(done) {
+			var called = true;
+
+			BrowserBot()
+				.go('http://yahoo.com/', function() {
+					called = true;
+				})
+				.run(function(err) {
+					assert(called);
+					done();
+				})
+			;
+
+		});
+
+		it('should throw an error if queued with too few arguments', function() {
+
+			BrowserBot()
+				.go()
+				.run(done())
+			;
+
+		});
+
+		it('should throw an error if queued with too many arguments', function() {
+
+			BrowserBot()
+				.go('http://www.google.com/', 'GET', '?foo=bar')
+				.run(done())
+			;
+
+		});
+
+
+	});
+
 });
