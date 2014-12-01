@@ -33,15 +33,21 @@ describe('BrowserBot', function() {
 			var bb = new BrowserBot();
 			bb
 				.go(srv.url)
-				.use(function() {
-					order.push(1)
+				.queue(function(browserbot, done) {
+					order.push(1);
+					done();
 				})
+		});
+
+		it('should run with a callback', function(done) {
+			new BrowserBot().run(function(err) {
+				done();
+			});
 		});
 
 		it('should run without a callback', function() {
 			new BrowserBot().run();
 		});
-
 
 	});
 
@@ -51,12 +57,12 @@ describe('BrowserBot', function() {
 			var start, end;
 
 			BrowserBot()
-				.use(function(done) {
+				.queue(function(browserbot, done) {
 					start = new Date()
 					done();
 				})
 				.wait(500)
-				.use(function(done) {
+				.queue(function(browserbot, done) {
 					end = new Date()
 					done();
 				})
@@ -76,29 +82,29 @@ describe('BrowserBot', function() {
 		it('should wait for page to load', function(done) {
 			var start, end;
 
-			var srv = server(function(req, res, cb) {
+			var srv = server(function(req, res, done) {
 				request = true;
 				res.write('<html>');
 				setTimeout(function() {
 					res.write('<head><title>Test</title></head><body><h1>Test</h1><a href="/" class="nav-link">A link!</a></body>');
 					res.end();
-					cb();
+					done();
 				}, 100);
 			}, {times: 2});
 
 			BrowserBot()
 				.go(srv.url)
 				.click('a.nav-link')
-				.use(function(cb) {
+				.queue(function(browserbot, done) {
 					start = new Date()
-					cb();
+					done();
 				})
 				.waitForEvent('LoadStarted')
 				//nothing else to load so this gap is really quick
 				.waitForEvent('LoadFinished')
-				.use(function(cb) {
+				.queue(function(browserbot, done) {
 					end = new Date()
-					cb();
+					done();
 				})
 				.run(function(err) {
 					assert.equal(typeof(err), typeof(undefined));
