@@ -1,7 +1,7 @@
 {
   "name": "browserbot",
 	"description": "A library for programatically browsing websites.",
-	"version": "0.1.2",
+	"version": "0.1.3",
   "main": "browserbot.js",
 	"homepage": "https://github.com/digitaledgeit/js-browserbot",
 	"bugs": {"url": "https://github.com/digitaledgeit/js-browserbot/issues"},

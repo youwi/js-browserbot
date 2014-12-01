@@ -13,18 +13,18 @@ function BrowserBot() {
 	}
 
 	this.browser  = new Browser();
-	this.queue    = [];
+	this.commands = [];
 }
 
 util.inherits(BrowserBot, EventEmitter);
 
 /**
- * Queue a plugin method
+ * Queue a command
  * @param   {Function} callback
  * @returns {BrowserBot}
  */
-BrowserBot.prototype.use = function(method) {
-	this.queue.push([method, []]);
+BrowserBot.prototype.queue = function(method) {
+	this.commands.push([method, [this]]);
 	return this;
 };
 
@@ -35,8 +35,8 @@ BrowserBot.prototype.use = function(method) {
  * @returns {BrowserBot}
  */
 BrowserBot.prototype.viewport = function(width, height) {
-	this.use(function(done) {
-		this.browser.setViewport(width, height);
+	this.queue(function(browserbot, done) {
+		browserbot.browser.setViewport(width, height);
 		done();
 	});
 	return this;
@@ -48,7 +48,7 @@ BrowserBot.prototype.viewport = function(width, height) {
  * @returns {BrowserBot}
  */
 BrowserBot.prototype.wait = function(ms) { //TODO: allow the user to specify a timeout
-	this.use(function(done) {
+	this.queue(function(browserbot, done) {
 		setTimeout(done, ms);
 	});
 	return this;
@@ -60,9 +60,9 @@ BrowserBot.prototype.wait = function(ms) { //TODO: allow the user to specify a t
  * @returns {BrowserBot}
  */
 BrowserBot.prototype.waitForEvent = function(event) { //TODO: allow the user to specify a timeout
-	this.use(function(done) {
-		this.browser.debug('.waitForEvent() "'+event+'"');
-		this.browser.once(event, function() {
+	this.queue(function(browserbot, done) {
+		browserbot.browser.debug('.waitForEvent() "'+event+'"');
+		browserbot.browser.once(event, function() {
 			done();
 		});
 	});
@@ -93,19 +93,20 @@ BrowserBot.prototype.run = function(callback) {
 		//exit there was an error
 		if (err) {
 			clean();
+			self.browser.debug('An error occurred whilst executing command: %s', err);
 			if (callback) callback(err);
 			return;
 		}
 
 		//exit we have no more commands
-		if (self.queue.length === 0) {
+		if (self.commands.length === 0) {
 			clean();
 			if (callback) callback();
 			return;
 		}
 
 		//get the next command
-		var cmd = self.queue.shift();
+		var cmd = self.commands.shift();
 
 		//create a copy of the parameters and append the `next` callback
 		var fn      = cmd[0];
@@ -186,7 +187,7 @@ function wrap(method) {
 
 		}
 
-		this.queue.push([
+		this.commands.push([
 			fn,
 			[].slice.call(arguments)
 		]);
