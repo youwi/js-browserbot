@@ -89,8 +89,20 @@ BrowserBot.prototype.run = function(callback) {
 	 * @param   {Error} err
 	 */
 	function next(err) {
-		if (err) return clean() || callback(err);
-		if (self.queue.length === 0) return clean() || callback();
+
+		//exit there was an error
+		if (err) {
+			clean();
+			if (callback) callback(err);
+			return;
+		}
+
+		//exit we have no more commands
+		if (self.queue.length === 0) {
+			clean();
+			if (callback) callback();
+			return;
+		}
 
 		//get the next command
 		var cmd = self.queue.shift();

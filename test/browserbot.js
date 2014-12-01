@@ -38,6 +38,11 @@ describe('BrowserBot', function() {
 				})
 		});
 
+		it('should run without a callback', function() {
+			new BrowserBot().run();
+		});
+
+
 	});
 
 	describe('.wait()', function() {
