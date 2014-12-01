@@ -1,6 +1,6 @@
 # browserbot
 
-A module for programatically browsing websites.
+A library for programatically browsing websites.
 
 Takes many ideas from [NightmareJS](https://github.com/segmentio/nightmare) with one major difference - errors stop the queued actions from executing.
 
