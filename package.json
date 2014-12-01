@@ -1,5 +1,6 @@
 {
   "name": "browserbot",
+	"version": "0.1.0",
   "main": "browserbot.js",
   "dependencies": {
     "debug": "^2.1.0",
