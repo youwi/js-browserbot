@@ -19,12 +19,22 @@ function BrowserBot() {
 util.inherits(BrowserBot, EventEmitter);
 
 /**
- * Queue a command
- * @param   {Function} callback
+ * Apply a plugin
+ * @param   {Function} plugin
  * @returns {BrowserBot}
  */
-BrowserBot.prototype.queue = function(method) {
-	this.commands.push([method, [this]]);
+BrowserBot.prototype.use = function(plugin) {
+	plugin(this);
+	return this;
+};
+
+/**
+ * Queue a command
+ * @param   {Function} command
+ * @returns {BrowserBot}
+ */
+BrowserBot.prototype.queue = function(command) {
+	this.commands.push([command, [this]]);
 	return this;
 };
 
