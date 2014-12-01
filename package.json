@@ -1,6 +1,6 @@
 {
-  "name": "phantom-browser",
-  "main": "browser.js",
+  "name": "browserbot",
+  "main": "browserbot.js",
   "dependencies": {
     "debug": "^2.1.0",
     "phantom": "^0.7.0"

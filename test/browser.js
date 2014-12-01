@@ -1,29 +1,33 @@
 var fs = require('fs');
 var assert = require('assert');
 var server = require('./server');
-var Browser = require('..');
+var Browser = require('../lib/browser');
 
-describe('browser', function() {
+describe('Browser', function() {
 
-	it('should be constructable', function() {
-		var browser = new Browser();
-		assert(browser);
-	});
+	describe('.constructor', function() {
 
-	it('should run actions in order', function() {
-		var browser = new Browser();
-
-		var srv = server(function(req, res) {
-			res.write('<html><head><title>Test</title></head><body><h1>Test</h1><a href="/" class="nav-link">A link!</a></body>');
-			res.end();
+		it('should be constructable', function() {
+			assert(new Browser());
 		});
 
-		browser
-			.go(srv.url)
-			.use(function() {
-				order.push(1)
-			})
-			.
+	});
+
+	describe('.setup()', function() {
+
+	});
+
+	describe('events', function() {
+
+		it('should emit error event', function() {
+		});
+
+		it('should emit load started event', function() {
+		});
+
+		it('should emit load finished event', function() {
+		});
+
 	});
 
 });
