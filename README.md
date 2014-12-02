@@ -48,3 +48,7 @@ queue one or more commands.
  - add optional timeouts for wait functions
  - implement unfinished actions
  - use the same debug object
+ 
+ - .waitForPageToLoad()
+ - show resource errors
+ - don't default SSL etc on

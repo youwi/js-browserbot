@@ -166,7 +166,7 @@ function wrap(method) {
 	return function() {
 		var fn, self = this;
 
-		if (arguments.length === method.args) {
+		if (arguments.length === method.args) {//FIXME: this doesn't work well when the method takes varying args
 
 			//user has passed in a callback - wrap theirs but still call ours e.g. queue.title(function(err) {});
 			fn = function() {
