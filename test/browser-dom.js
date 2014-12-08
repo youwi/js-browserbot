@@ -13,12 +13,11 @@ describe('browser-dom', function() {
 				res.end();
 			});
 
-			browser().setup(function(err) {
-				var self = this;
+			browser.create(function(browser) {
 
-				self.go(srv.url, function(err) {
-					self.title(function(err, title) {
-						self.destroy();
+				browser.once('LoadFinished', function() {
+					browser.title(function(err, title) {
+						browser.destroy();
 
 						assert.equal(typeof(err), typeof(undefined));
 						assert.equal(title, 'A PhantomJS Browser Test');
@@ -26,8 +25,10 @@ describe('browser-dom', function() {
 						done();
 					});
 				});
-			});
 
+				browser.go(srv.url);
+
+			});
 
 		});
 

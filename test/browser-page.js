@@ -1,7 +1,7 @@
 var fs = require('fs');
 var assert = require('assert');
 var server = require('./server');
-var BrowserBot = require('../browserbot');
+var browser = require('../lib/browser');
 
 describe('browser-page', function() {
 
@@ -9,13 +9,12 @@ describe('browser-page', function() {
 
 		it('should successfully set the size', function(done) {
 
-			BrowserBot()
-				.viewport(1024, 768)//TODO: verify it gets created the right size
-				.run(function(err) {
-					assert.equal(typeof(err), typeof(undefined));
-					done();
-				})
-			;
+			browser.create(function(browser) {
+				browser.viewport(1024, 768); //TODO: verify it gets created the right size
+
+				browser.destroy();
+				done();
+			});
 
 		});
 
@@ -32,16 +31,19 @@ describe('browser-page', function() {
 				res.end();
 			});
 
-			BrowserBot()
-				.go(srv.url)
-				.screenshot(file)
-				.run(function(err) {
+			browser.create(function(browser) {
+				browser.go(srv.url);
+				browser.once('LoadFinished', function() {
+
+					browser.screenshot(file);
+
 					assert.equal(typeof(err), typeof(undefined));
 					assert(fs.statSync(file).isFile());
 					fs.unlinkSync(file);
 					done();
-				})
-			;
+
+				});
+			});
 
 		});
 

@@ -1,19 +1,33 @@
 var fs = require('fs');
 var assert = require('assert');
 var server = require('./server');
-var Browser = require('../lib/browser');
+var browser = require('../lib/browser');
 
 describe('Browser', function() {
 
-	describe('.constructor', function() {
+	describe('.create()', function() {
 
-		it('should be constructable', function() {
-			assert(new Browser());
+		it('should create a browser', function() {
+			browser.create(function(browser) {
+				browser.destroy();
+			});
+		});
+
+		it('should create a browser with options', function() {
+			browser.create({}, function(browser) {
+				browser.destroy();
+			});
 		});
 
 	});
 
-	describe('.setup()', function() {
+	describe('.destroy()', function() {
+
+		it('should be destroyed', function() {
+			browser.create(function(browser) {
+				browser.destroy();
+			});
+		});
 
 	});
 

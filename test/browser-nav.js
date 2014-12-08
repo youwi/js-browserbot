@@ -1,6 +1,6 @@
 var assert = require('assert');
 var server = require('./server');
-var Browser = require('../lib/browser');
+var browser = require('../lib/browser');
 
 describe('browser-nav', function() {
 
@@ -15,8 +15,9 @@ describe('browser-nav', function() {
 				res.end();
 			});
 
-			var browser = Browser().setup(function(err) {
-				browser.go(srv.url, function(err) {
+			browser.create(function(browser) {
+				browser.go(srv.url);
+				browser.once('LoadFinished', function() {
 					browser.destroy();
 
 					assert(request);
@@ -29,24 +30,24 @@ describe('browser-nav', function() {
 		});
 
 		it('should get an error when I go to a offline URL', function(done) {
-			var browser = Browser().setup(function(err) {
-				browser.go('http://foobar.localhost:9999', function(err) {
+			browser.create(function(browser) {
+				browser.go('http://foobar.localhost:9999');
+
+				browser.once('LoadFinished', function(status) {
 					browser.destroy();
-
-					assert(err instanceof Error);
-
+					assert.equal(status, 'fail');
 					done();
 				});
 			});
 		});
 
 		it('should get an error when I go to an invalid URL', function(done) {
-			var browser = Browser().setup(function() {
-				browser.go('foobar://la-de-dah/invalid', function(err) {
+			browser.create(function(browser) {
+				browser.go('foobar://la-de-dah/invalid');
+
+				browser.once('LoadFinished', function(status) {
 					browser.destroy();
-
-					assert(err instanceof Error);
-
+					assert.equal(status, 'fail');
 					done();
 				});
 			})
@@ -61,8 +62,9 @@ describe('browser-nav', function() {
 				res.end();
 			});
 
-			var browser = Browser().setup(function(err) {
-				browser.go(srv.url, function(err) {
+			browser.create(function(browser) {
+				browser.go(srv.url);
+				browser.once('LoadFinished', function() {
 					browser.destroy();
 
 					assert(request);

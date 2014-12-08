@@ -10,6 +10,6 @@
   "dependencies": {
     "debug": "^2.1.0",
     "deepmerge": "^0.2.7",
-    "phantom": "^0.7.0"
+    "phantom": "*"
   }
 }
