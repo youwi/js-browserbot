@@ -5,7 +5,7 @@ var query = 'weird';
 browser.create(function(browser) {
 
 	browser
-		.setViewport(1024, 768)
+		.viewport(1024, 768)
 		.go('http://www.ebay.com/')
 		.once('LoadFinished', function(err) {
 			if (err !== 'success') return console.log(err) || browser.destroy();

@@ -22,17 +22,18 @@ queue one or more commands.
         return function(browserbot) {
             browserbot
                 .go('http://example.com/login')
+                .waitForPageToLoad()
                 .type('#username', username)
                 .type('#password', password)
                 .click('#login')
-                .waitForEvent('LoadFinished')
+                .waitForPageToLoad()
             ;
         };
     }
     
     browserbot.use(authenticate('john.smith', 'i_love_JS!'));
     
-#### Disable CSS Transitions on pages the use Modernizr
+#### Disable CSS Transitions on pages that use Modernizr
 
     function disableCSSTransitions(browserbot) {
         browserbot.evaluate(function() {
@@ -44,7 +45,7 @@ queue one or more commands.
 
 ## TODO:
 
- - better error handling e.g. when selectors are not found
+ - better error messages e.g. when selectors are not found
  - add optional timeouts for wait functions
  - implement unfinished actions
  - use the same debug object
