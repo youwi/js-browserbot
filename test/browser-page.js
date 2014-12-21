@@ -1,6 +1,7 @@
 var fs = require('fs');
 var assert = require('assert');
 var server = require('./server');
+
 var browser = require('../lib/browser');
 
 describe('browser-page', function() {
@@ -34,14 +35,10 @@ describe('browser-page', function() {
 			browser.create(function(browser) {
 				browser.go(srv.url);
 				browser.once('LoadFinished', function() {
-
 					browser.screenshot(file);
-
-					assert.equal(typeof(err), typeof(undefined));
 					assert(fs.statSync(file).isFile());
 					fs.unlinkSync(file);
 					done();
-
 				});
 			});
 

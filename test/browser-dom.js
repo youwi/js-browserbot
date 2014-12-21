@@ -8,15 +8,15 @@ describe('browser-dom', function() {
 
 		it('should return the page title', function(done) {
 
-			var srv = server(function(req, res) {
+			var srv = server(function (req, res) {
 				res.write('<html><head><title>A PhantomJS Browser Test</title></head><body><h1>Test</h1></body>');
 				res.end();
 			});
 
-			browser.create(function(browser) {
+			browser.create(function (browser) {
 
-				browser.once('LoadFinished', function() {
-					browser.title(function(err, title) {
+				browser.once('LoadFinished', function () {
+					browser.title(function (err, title) {
 						browser.destroy();
 
 						assert.equal(typeof(err), typeof(undefined));

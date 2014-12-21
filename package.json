@@ -3,7 +3,7 @@
 	"license": "MIT",
   "description": "A library for programatically browsing websites.",
   "version": "0.1.6",
-  "main": "browserbot.js",
+  "main": "lib/browserbot.js",
   "homepage": "https://github.com/digitaledgeit/js-browserbot",
   "bugs": {
     "url": "https://github.com/digitaledgeit/js-browserbot/issues"

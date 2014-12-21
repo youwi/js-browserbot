@@ -1,6 +1,7 @@
 var fs = require('fs');
 var assert = require('assert');
 var server = require('./server');
+
 var browser = require('../lib/browser');
 
 describe('Browser', function() {
@@ -17,6 +18,7 @@ describe('Browser', function() {
 			browser.create({}, function(browser) {
 				browser.destroy();
 			});
+
 		});
 
 	});

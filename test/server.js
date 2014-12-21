@@ -2,7 +2,7 @@ var http = require('http');
 var https = require('https');
 
 var host = 'localhost';
-var port = 3000;
+var port = 3100; //Apple iSync is on port 3004
 
 /**
  * Create a server

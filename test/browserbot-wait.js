@@ -89,31 +89,31 @@ describe('BrowserBot', function() {
 				var start, stop;
 
 				var srv = server(function(req, res, done) {
-					request = true;
 					res.write('<html>');
 					setTimeout(function() {
-						res.write('<head><title>Test</title></head><body><h1>Test</h1><a href="/" class="nav-link">A link!</a></body>');
+						res.write('<head><title>Test</title></head><body><h1>Test</h1><a href="/" class="nav-link">A link!</a></body></html>');
 						res.end();
 						done();
-					}, 100);
-				});
+					},100);
+				}, {times: 2});
 
 				browserbot()
 					.go(srv.url)
+					.waitForPageToLoad()
 					.click('a.nav-link')
 					.queue(function(browser, done) {
 						start = new Date();
 						done();
 					})
-					.waitForEvent('LoadStarted')
-					.waitForEvent('LoadFinished')
+					.waitForEvent('LoadStarted') //TODO: check for error
+					.waitForEvent('LoadFinished') //TODO: check for error
 					.queue(function(browser, done) {
 						stop = new Date();
 						done();
 					})
 					.run(function(err) {
 						assert.equal(typeof(undefined), typeof(err), err);
-						assert(stop-start >= 100);
+						assert(stop.getTime()-start.getTime() >= 100);
 						done();
 					})
 				;
