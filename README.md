@@ -3,7 +3,7 @@
 A library for programatically browsing websites.
 
 This library takes many ideas from [NightmareJS](https://github.com/segmentio/nightmare) with one major difference - 
-errors stop remaining queued actions from executing and return an error to the user.
+errors stop the remaining queued actions from executing and return an error to the user.
 
 ## Install
 

@@ -1,7 +1,7 @@
 {
   "name": "browserbot",
 	"license": "MIT",
-	"keywords": ["phantomjs", "browser", "nightmare", "wrapper"],
+	"keywords": ["browserbot", "phantom", "phantomjs", "browser", "nightmare", "wrapper"],
   "description": "A library for programatically browsing websites.",
   "version": "0.1.10",
   "main": "lib/browserbot.js",
