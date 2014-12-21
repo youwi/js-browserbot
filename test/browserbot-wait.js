@@ -100,7 +100,7 @@ describe('BrowserBot', function() {
 				browserbot()
 					.go(srv.url)
 					.waitForPageToLoad()
-					.click('a.nav-link')
+					.click('.nav-link')
 					.queue(function(browser, done) {
 						start = new Date();
 						done();

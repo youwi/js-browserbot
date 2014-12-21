@@ -1,5 +1,5 @@
 var assert = require('assert');
-var BrowserBot = require('../lib/browserbot');
+var BrowserBot = require('..');
 
 describe('BrowserBot plugins', function() {
 

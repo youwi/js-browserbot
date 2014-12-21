@@ -36,8 +36,10 @@ describe('browser-page', function() {
 				browser.go(srv.url);
 				browser.once('LoadFinished', function() {
 					browser.screenshot(file);
+					assert(fs.existsSync(file));
 					assert(fs.statSync(file).isFile());
 					fs.unlinkSync(file);
+					browser.destroy();
 					done();
 				});
 			});

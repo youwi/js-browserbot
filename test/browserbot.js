@@ -1,7 +1,7 @@
 var fs = require('fs');
 var assert = require('assert');
 var server = require('./server');
-var BrowserBot = require('../lib/browserbot');
+var BrowserBot = require('..');
 
 describe('BrowserBot', function() {
 
