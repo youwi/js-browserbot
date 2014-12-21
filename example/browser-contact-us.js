@@ -1,7 +1,5 @@
 var browser = require('./../lib/browser');
 
-var query = 'weird';
-
 browser.create(function(browser) {
 
 	browser
@@ -19,7 +17,7 @@ browser.create(function(browser) {
 
 							browser.screenshot('contact.png');
 							browser.destroy();
-							console.log('done');
+							console.log(status, 'Your email has been sent and your screenshot has been saved!');
 
 						});
 					});
@@ -28,11 +26,11 @@ browser.create(function(browser) {
 			}
 
 			browser
-				.type('input[name=firstName]', 'phantom', then)
-				.type('input[name=lastName]', 'browser', then)
-				.type('input[name=email]', 'tester@example.com', then)
-				.type('input[name=subject]', 'Phantom-Browser Test', then)
-				.type('textarea[name=message]', 'A test message', then)
+				.type('input[name=firstName]',  'nodejs', then)
+				.type('input[name=lastName]',   'expert', then)
+				.type('input[name=email]',      'nodejs-expert@example.com', then)
+				.type('input[name=subject]',    'BrowserBot', then)
+				.type('textarea[name=message]', 'I really like BrowserBot, your PhantomJS wrapper!', then)
 			;
 
 		}

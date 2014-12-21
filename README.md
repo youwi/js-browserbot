@@ -9,6 +9,28 @@ errors stop remaining queued actions from executing and return an error to the u
 
     npm install --save browserbot
 
+## Usage
+    
+Send me an email:
+    
+    var browserbot = require('browserbot');
+    
+    new browserbot()
+        .go('http://www.digitaledgeit.com.au/contact/')
+        .waitForPageToLoad()
+        .type('input[name=firstName]',  'nodejs')
+        .type('input[name=lastName]',   'expert')
+        .type('input[name=email]',      'nodejs-expert@example.com')
+        .type('input[name=subject]',    'BrowserBot')
+        .type('textarea[name=message]', 'I really like BrowserBot, your PhantomJS wrapper!')
+        .click('input[type=submit]')
+        .waitForPageToLoad()
+        .screenshot('contact.png')
+        .run(function(err) {
+            console.log(err, 'Your email has been sent and your screenshot has been saved!');
+        })
+    ;
+
 ## Plugins
 
 Plugins are just functions whom are passed the browserbot object and perform some functionality. Normally a plugin will 
@@ -33,6 +55,8 @@ queue one or more commands.
     
     browserbot.use(authenticate('john.smith', 'i_love_JS!'));
     
+    //now call other browserbot methods to browse authenticated pages
+    
 #### Disable CSS Transitions on pages that use Modernizr
 
     function disableCSSTransitions(browserbot) {
@@ -42,6 +66,8 @@ queue one or more commands.
     }
     
     browserbot.use(disableCSSTransitions);
+    
+    //now call other browserbot methods to browse pages with transitions disabled
 
 ## TODO:
 
