@@ -69,7 +69,28 @@ queue one or more commands.
     
     //now call other browserbot methods to browse pages with transitions disabled
 
-## TODO:
+## API
+
+### browserbot() : Browserbot
+
+### .on()
+### .once()
+### .off()
+
+### .go()
+### .type()
+### .click()
+
+### .viewport(width, height)
+### .screenshot(path)
+
+### .wait(ms)
+### .waitForEvent(event)
+### .waitForPageToLoad()
+
+### .run()
+
+## TODO
 
  - better error messages e.g. when selectors are not found
  - add optional timeouts for wait functions

@@ -122,6 +122,39 @@ describe('BrowserBot', function() {
 
 		});
 
+		describe('.waitForPageToLoad()', function() {
+
+			it('should return an error when the page cannot be loaded', function(done) {
+
+				browserbot()
+					.go('http://foobar.foobar/server-not-found')
+					.waitForPageToLoad()
+					.run(function(err) {
+						assert(err);
+						done();
+					})
+				;
+
+			});
+
+			it('should call callback with an error when the page cannot be loaded', function(done) {
+
+				browserbot()
+					.go('http://foobar.foobar/server-not-found')
+					.waitForPageToLoad(function(err, done) {
+						assert(err);
+						done();
+					})
+					.run(function(err) {
+						assert(!err);
+						done();
+					})
+				;
+
+			});
+
+		});
+
 	});
 
 });
