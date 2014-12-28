@@ -35,14 +35,13 @@ describe('browser-page', function() {
 			browser.create(function(browser) {
 				browser.go(srv.url);
 				browser.once('LoadFinished', function() {
-					browser.screenshot(file);
-					//setTimeout(function() {
+					browser.screenshot(file, function() {
 						assert(fs.existsSync(file));
 						assert(fs.statSync(file).isFile());
 						fs.unlinkSync(file);
 						browser.destroy();
 						done();
-					//}, 0);
+					});
 				});
 			});
 
